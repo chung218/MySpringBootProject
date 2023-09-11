@@ -7,3 +7,10 @@
 추천 알고리즘을 검색을 통해 웹에 반영
 
 국비 과정 중 배운 기술 이용 웹 페이지 개발
+
+
+* 추천 알고리즘 반영과정 파이썬 모듈 사용
+  - sklearn, cx_Oracle등 외부 모듈 설치 필요
+
+search_input_db_communication(final).py
+사용해야 검색로직 작동

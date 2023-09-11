@@ -8,7 +8,7 @@ import re
 import time
 
 # Oracle DB 접속 정보 설정
-connection = cx_Oracle.connect("party/party@localhost:1521/xe")
+connection = cx_Oracle.connect("secret/secret@localhost:1521/xe")
 
 
 # DB에서 계속 데이터를 호출하는 함수

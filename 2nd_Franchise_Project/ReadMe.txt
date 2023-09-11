@@ -5,3 +5,8 @@
 JS& JQUERY 활용
 
 KAKAOMAP API, CHART JS 등을 사용한 데이터 시각화
+
+
+발표자료 링크
+
+https://www.miricanvas.com/v/129pb46
