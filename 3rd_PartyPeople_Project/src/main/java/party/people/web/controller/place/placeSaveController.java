@@ -113,34 +113,4 @@ public class placeSaveController {
 
 
 
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    @PostMapping("saveCard")
-////    public String inviteCard(@ModelAttribute("inviteCard")InviteCard inviteCard,@RequestParam("datetype") String datetype){
-//
-//    public String inviteCard(@RequestParam("MEETING_PARTICIPANTS")String MEETING_PARTICIPANTS,@@RequestParam(""),@RequestParam(""),@RequestParam(""),
-//                             @RequestParam("datetype") String datetype ){
-//        System.out.println("저장중");
-//        System.out.println(inviteCard.getPLACE_ID_1());
-//
-//        log.info("placeSaveController] datetype = " + datetype);
-//
-//        log.info("placeSaveController] inviteCard = " + inviteCard.getTITLE());
-//        log.info("placeSaveController] inviteCard = " + inviteCard.getPLACE_ID_1());
-//
-//        log.info("placeSaveController] inviteCard = " + inviteCard.getCLIENT_ID());
-//
-//        inviteCard.setCLIENT_ID("tester");
-//        inviteCardInterface.saveCard(inviteCard);
-//
-//
-//        return "redirect:/invite/invite_A";
-//    }
-//    @GetMapping("saveCard")
-//    public String inviteGet(){
-//        return "invite/invite_A";
-//    }
-
-
-
-
 }

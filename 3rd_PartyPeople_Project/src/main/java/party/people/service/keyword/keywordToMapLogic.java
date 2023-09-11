@@ -122,7 +122,6 @@ public class keywordToMapLogic {
                 } else {
                     mapKeyword.put(textResult, mapKeyword.get(textResult) + numberResult);
                 }
-//            mapKeyword.put(textResult, numberResult);
             }
         }
         return mapKeyword;

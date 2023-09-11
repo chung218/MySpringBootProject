@@ -43,25 +43,22 @@ public class CategoryController {
         List<Food> food = foodInterface.getList(page);
         List<Brand> brand3 = brandInterface.loadTable1(category);
         int total = brand3.size();
-        log.info("total] "+total);
         List<Brand> paging = brandInterface.paging(page, category);
+        model.addAttribute("pageMaker", new PageDto(page,total));
+        model.addAttribute("brand3", paging);
+        log.info("total] "+total);
+
         List<Brand> brand = brandInterface.getPieChart(category);
         List<Brand> brand2 = brandInterface.findSalesTop5(category);
         model.addAttribute("total", total);
         model.addAttribute("category",category);
         model.addAttribute("food",food);
-        model.addAttribute("pageMaker", new PageDto(page,total));
+
         model.addAttribute("brand", brand);
         model.addAttribute("brand2", brand2);
-        model.addAttribute("brand3", paging);
+
         return "category/list_semi_final";
     }
-
-//    @CrossOrigin(origins = "http://localhost:8080")
-//    @PostMapping("/category")
-//    public ResponseEntity<?> handleCategory(@RequestBody String category){
-//        return ResponseEntity.ok("Request handled ok");
-//    }
 
 
     @PostMapping("/category")

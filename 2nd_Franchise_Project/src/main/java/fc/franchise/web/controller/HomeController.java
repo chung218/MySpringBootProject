@@ -84,12 +84,7 @@ public class HomeController {
         }
         return "main/main_semi_final";
     }
-//
-//    @PostMapping("/main")
-//    public String brandNameSend(@RequestParam("brandName") String brandName, Model model){
-//        log.info("brandNameSend] "+brandName);
-//        return "main/main_semi_final";
-//    }
+
 
 
 

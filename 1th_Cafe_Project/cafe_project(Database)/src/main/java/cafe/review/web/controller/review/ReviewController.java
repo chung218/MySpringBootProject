@@ -37,6 +37,8 @@ public class ReviewController {
         return "review/review";
     }
 
+
+    // 리뷰 작성
     @PostMapping("/review")
     public String review(@ModelAttribute Review review, RedirectAttributes redirectAttributes) {
         Review savedReview = reviewServiceInterface.save(review);

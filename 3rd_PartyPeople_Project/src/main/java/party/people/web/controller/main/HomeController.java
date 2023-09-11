@@ -242,8 +242,8 @@ public class HomeController {
         /* 세션에 저장되어있는 로그인 정보를 thymeleaf단에 "client"이름으로 전달 */
         model.addAttribute("client",loginClient);
 
-        /* Oracle 데이터베이스 연결 확인 */
-        List<Test> test = testInterface.findAll();
+//        /* Oracle 데이터베이스 연결 확인 */
+//        List<Test> test = testInterface.findAll();
 
         /* 세션 객체(로그인 정보)가 null이 아니라면 loginHome으로 이동 */
         return MAIN;
