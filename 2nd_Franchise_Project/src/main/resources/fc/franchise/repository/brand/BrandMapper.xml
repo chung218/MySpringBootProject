@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fc.franchise.repository.brand.BrandMapper">
+
+    <select id="findAll" resultType="brand">
+        select 기준년도 as year,
+        업종대분류명 as industryCategory,
+        업종중분류명 as industryClassification,
+        법인명 as industryName,
+        브랜드명 as brandName,
+        가맹점수 as franchisesNumber,
+        신규가맹점등록수 as newBrandNum,
+        계약종료수 as endCount,
+        계약해지수 as cancelCount,
+        평균매출금액 as avgSales
+        FROM (
+            SELECT *
+            FROM BRAND_FR_PRO
+            WHERE 업종중분류명 = #{category}
+            ORDER BY 기준년도 DESC, 평균매출금액 DESC, 가맹점수 DESC
+            )
+--         WHERE rownum between 1 and 150
+    </select>
+
+    <select id="loadTable1" resultType="brand">
+        SELECT 기준년도 as year,
+        업종대분류명 as industryCategory,
+        업종중분류명 as industryClassification,
+        법인명 as industryName,
+        브랜드명 as brandName,
+        가맹점수 as franchisesNumber,
+        신규가맹점등록수 as newBrandNum,
+        계약종료수 as endCount,
+        계약해지수 as cancelCount,
+        평균매출금액 as avgSales
+        FROM (
+            SELECT *
+            FROM BRAND_FR_PRO
+            WHERE 업종중분류명 = #{category}
+            ORDER BY 기준년도 DESC, 평균매출금액 DESC, 가맹점수 DESC
+            )
+
+    </select>
+
+    <select id="departure" resultType="brand">
+        select 브랜드명 as brandName, 가맹점수 as franchisesNumber
+        from (select * from brand_fr_pro
+              where 업종중분류명 = '한식' and 기준년도='2022'
+              order by 가맹점수 desc)
+        where rownum between 1 and 5
+    </select>
+
+    <select id="getPieChart" resultType="brand">
+        select 브랜드명 as brandName, 가맹점수 as franchisesNumber
+        from (select * from brand_fr_pro
+              where 업종중분류명 = #{category} and 기준년도='2022'
+              order by 가맹점수 desc)
+        where rownum between 1 and 5
+    </select>
+
+    <select id="findTop3" resultType="brand">
+        SELECT 기준년도 as year, 업종중분류명 as industryClassification,
+         브랜드명 as brandName, 가맹점수 as franchisesNumber, 평균매출금액 as avgSales
+        FROM (SELECT *
+        FROM brand_fr_pro
+        WHERE 기준년도 = 2022 AND 업종중분류명 = #{category}
+        ORDER BY 가맹점수 DESC)
+        WHERE ROWNUM BETWEEN 1 AND 10
+    </select>
+
+    <select id="findSalesTop5" resultType="brand">
+       SELECT DISTINCT 평균매출금액 as avgSales, 브랜드명 as brandName
+        FROM (
+        SELECT 브랜드명, AVG(평균매출금액) as 평균매출금액
+        FROM brand_fr_pro
+        WHERE 기준년도 BETWEEN 2018 AND 2022 AND 업종중분류명 IN #{category}
+        GROUP BY 브랜드명
+        ORDER BY 평균매출금액 DESC
+        )
+        WHERE ROWNUM BETWEEN 1 AND 5
+        ORDER BY 평균매출금액 DESC
+    </select>
+
+
+
+<!--    2022 기준 외식별 상위 1 ~ 10순위 -->
+    <select id="top10List" resultType="brand">
+        select 기준년도 as year,
+        업종대분류명 as industryCategory,
+        업종중분류명 as industryClassification,
+        법인명 as industryName,
+        브랜드명 as brandName,
+        가맹점수 as franchisesNumber,
+        신규가맹점등록수 as newBrandNum,
+        계약종료수 as endCount,
+        계약해지수 as cancelCount,
+        평균매출금액 as avgSales
+        FROM (SELECT DISTINCT *
+        From brand_fr_pro
+        ORDER BY 평균매출금액 DESC)
+        WHERE 기준년도 = 2022 and ROWNUM BETWEEN 1 AND 10
+    </select>
+
+    <!--    2021 기준 외식별 상위 1 ~ 10순위 -->
+    <select id="top10List2" resultType="brand">
+        select 기준년도 as year,
+        업종대분류명 as industryCategory,
+        업종중분류명 as industryClassification,
+        법인명 as industryName,
+        브랜드명 as brandName,
+        가맹점수 as franchisesNumber,
+        신규가맹점등록수 as newBrandNum,
+        계약종료수 as endCount,
+        계약해지수 as cancelCount,
+        평균매출금액 as avgSales
+        FROM (SELECT DISTINCT *
+            From brand_fr_pro
+            ORDER BY 평균매출금액 DESC)
+        WHERE 기준년도 = 2021 and ROWNUM BETWEEN 1 AND 10
+    </select>
+
+    <select id="paging" resultType="brand">
+        SELECT 기준년도 as year, 업종대분류명 as industryCategory,
+        업종중분류명 as industryClassification, 법인명 as industryName,
+        브랜드명 as brandName, 가맹점수 as franchisesNumber,
+        신규가맹점등록수 as newBrandNum, 계약종료수 as endCount,
+        계약해지수 as cancelCount, 평균매출금액 as avgSales
+        FROM
+        (select ROWNUM RN, 기준년도, 업종대분류명, 업종중분류명, 법인명, 브랜드명, 가맹점수,
+        신규가맹점등록수, 계약종료수, 계약해지수, 평균매출금액
+        FROM
+        (SELECT * FROM BRAND_FR_PRO WHERE 업종중분류명 = #{category}
+        ORDER BY 기준년도 DESC, 평균매출금액 DESC, 가맹점수 DESC)
+        where rownum between 1 and #{page.pageNum} * #{page.amount})
+        where RN > (#{page.pageNum}-1) * #{page.amount}
+    </select>
+
+
+
+    <select id="storeNumbers" resultType="brand">
+        select 기준년도 as year,
+        업종대분류명 as industryCategory,
+        업종중분류명 as industryClassification,
+        법인명 as industryName,
+        브랜드명 as brandName,
+        가맹점수 as franchisesNumber,
+        신규가맹점등록수 as newBrandNum,
+        계약종료수 as endCount,
+        계약해지수 as cancelCount,
+        평균매출금액 as avgSales
+        FROM (SELECT DISTINCT *
+            From brand_fr_pro
+            WHERE (가맹점수 > 0 OR 신규가맹점등록수 > 0) AND 기준년도 = 2022
+            ORDER BY 가맹점수 DESC)
+        WHERE ROWNUM BETWEEN 1 AND 50
+    </select>
+
+    <select id="bounceRate" resultType="brand">
+        select 기준년도 as year,
+        브랜드명 as brandName,
+        계약종료수 as endCount,
+        가맹점수 as franchisesNumber,
+        신규가맹점등록수 as newBrandNum,
+        계약해지수 as cancelCount,
+        이탈률 as figure
+        FROM (SELECT DISTINCT *
+            From brand_fr_pro
+            WHERE (계약해지수 >0 AND 계약종료수 > 0) AND 기준년도 = 2022
+            ORDER BY (계약해지수 + 계약종료수) DESC)
+        WHERE ROWNUM BETWEEN 1 AND 100
+    </select>
+
+
+
+    <select id="figure" resultType="brand">
+        select
+        브랜드명 as brandName,
+        이탈률 as figure,
+        기준년도 as year
+        FROM (SELECT DISTINCT *
+            From brand_fr_pro
+            WHERE 기준년도 = 2022 AND 이탈률 > 0
+            ORDER BY 이탈률 DESC)
+        WHERE ROWNUM BETWEEN 1 AND 20
+    </select>
+
+</mapper>

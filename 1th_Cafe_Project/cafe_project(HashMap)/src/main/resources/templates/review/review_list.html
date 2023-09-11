@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>카페 리뷰 전체 페이지</title>
+  <link rel="stylesheet" href="css/mainstyle.css">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <style>
+      #wrapper {
+        width: auto;
+        margin: 0 auto;
+      }
+      h2 {
+        text-align: center;
+      }
+      /* navbar */
+      .navbar{
+        height: 60px;
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+      .navbar #logo {
+        line-height: 60px;
+      }
+      .navbar #logo img{
+        vertical-align: middle;
+      }
+
+      .navbar #menu {
+        float: right;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+      }
+      .navbar #menu li {
+        float:left;
+        margin-left: 50px;
+        line-height: 60px;
+      }
+
+      .navbar #menu li a {
+        text-decoration: none;
+        color: #545454 ;
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      footer p {
+        padding: 20px;
+      }
+      h1 {font-size: 2em;}
+      h2 {font-size: 1.5em;}
+      h3 {font-size: 1.0em;}
+      p {
+        line-height: 20px;
+        font-size: 12px;
+      }
+      section {
+        margin: 0 auto;
+        float: none;
+        width: 1200px;
+        padding: 5px;
+      }
+
+      section article {
+        float: left;
+        width: 800px;
+        height: 250px;
+        margin: 5px;
+        padding: 10px;
+        border: 1px solid #ccc;
+      }
+      section article h1 {
+        margin: 10px;
+        margin-left: 30px;
+      }
+      section article h3 {
+        margin: 10px;
+        margin-left: 70px;
+      }
+      section article h5 {
+        margin: 5px;
+        margin-left: 320px;
+      }
+      section article img {
+        float: left;
+        width: 230px;
+        height: 230px;
+        margin: 1px;
+        padding: 1px;
+      }
+
+      aside {
+        float: right;
+        width: 450px;
+        height: auto;
+        margin-top: 10px;
+        border: 1px solid darkgreen;
+        text-align: center;
+      }
+      footer {
+        clear: both;
+        width: 100%;
+        margin-bottom: 0;
+        background-color: #333;
+        color: white;
+        text-align: center;
+      }
+
+    </style>
+</head>
+<body>
+<div id="wrapper">
+  <div th:insert="~{/main/header.html}"></div>
+      <section>
+<!--        <form action="review_list.html" th:action th:object="${review}" method="post">-->
+        <h2>리뷰 전체 페이지</h2>
+        <div class="row">
+            <div class="col">
+
+            <form role="search" th:action="searchByReviewTitle" method="post">
+                <input placeholder="카페 이름으로 리뷰 검색" aria-label="Search" id="reviewTitle" name="reviewTitle">
+                <button type="submit">Search</button>
+            </form>
+            </div>
+          <div class="col">
+            <button class="btn btn-primary float-end"
+                    th:onclick="|location.href='@{/review}'|" type="button">
+                리뷰 등록</button>
+          </div><hr>
+        </div><br>
+            <article th:each="review : ${reviews}">
+                <!--        <article th:each="cafe : ${cafes}" th:href="@{All_list/{cafeName}(cafeName=${cafe.cafeName})}">-->
+                <h1 th:text="|카페 이름 : ${review.reviewTitle}|">리뷰 제목</h1>
+                <h3 th:text="|리뷰 내용: ${review.reviewContent}|">주소: 인천 부평구 부평대로38번길 28</h3>
+
+            </article>
+<!--          <table>-->
+<!--          <div class="review">-->
+<!--            <div class="profile">-->
+<!--            </div>-->
+<!--&lt;!&ndash;            <p th:text="|회원 ID : ${review.reviewId}|">회원 ID</p>&ndash;&gt;-->
+<!--            <span th:text="|후기 제목 : ${review.reviewTitle}|">후기 제목</span>-->
+<!--            <p th:text="|후기 내용 : ${review.reviewContent}|">-->
+<!--             후기내용-->
+<!--            </p><br>-->
+<!--          </div>-->
+<!--          </table>-->
+<!--        </form>-->
+      </section>
+
+  <div th:insert="~{/main/footer.html}"></div>
+    </div>
+</body>
+</html>

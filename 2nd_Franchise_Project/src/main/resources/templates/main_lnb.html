@@ -1,0 +1,134 @@
+<!-- 02-2-1. 대시보드 집계 그래프 노출 영역 시작 -->
+<!--<h2 th:if="${category}" th:text="|[${category}] 업종별 가맹점 분포|">[외식] 업종별 가맹점 분포</h2>-->
+<div class="btn_lnb_open"><a href="#" class="fa fa-chevron-left"> </a></div>
+<h2 th:if="null" th:text="업종별 브랜드 분포">업종별 브랜드 분포</h2>
+<!--<h2 th:unless="null" th:utext="|[${category}] 업종별 브랜드 분포|">양갱</h2>-->
+<h2>
+    <b th:unless="null" th:text="|${category}|"> </b> 프랜차이즈 TOP5
+</h2>
+
+<div class="dash_board_graph">
+    <canvas id="mainChart" width="230px" height="230px"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js" integrity="sha512-JPcRR8yFa8mmCsfrw4TNte1ZvF1e3+1SdGMslZvmrzDYxS69J7J49vkFL8u6u8PlPJK+H3voElBtUCzaXj+6ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script th:inline="javascript">
+        var brandList = [[${pie}]];
+        console.log('리스트는 오는가')
+        console.log(brandList)
+        console.log('리스트는 오지 않았다')
+        var ctx = document.getElementById('mainChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: brandList.map(brand => brand.brandName),
+                datasets: [{
+                    label: '가맹점수 TOP 5',
+                    data: brandList.map(brand => brand.franchisesNumber),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2000
+                },
+                legend: {
+                    position: 'bottom',
+                },
+                // scales: {
+                //     y: {
+                //         beginAtZero: false
+                //     }
+                // },
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        display: false
+                    },
+                    datalabels: {
+                        formatter: ((context, args)  => {
+                            const index = args.dataIndex;
+                            return args.chart.data.labels[index]
+                    })
+                    }
+                    // scales: {
+                    //     display: false
+                    // }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+    </script>
+</div>
+<!-- 02-2-1.대시보드 집계 그래프 노출 영역 끝 -->
+<!-- 02-2-2.페이지 컨텐츠 서브 메뉴 노출 시작 -->
+<dl class="latest">
+    <dt th:if="null" th:text="가맹점수 Top3"></dt>
+    <dt>
+        <b th:unless="null" th:text="|${category}|"> </b> 브랜드 Top10
+        <div class="standard_cond">( *2022년 가맹기준 )</div>
+    </dt>
+    <dd>
+        <ol class="br_li">
+            <li th:each="brand : ${brands}" th:class="${brand.brandName}">
+                <a th:onclick="sendBrandName([[${brand.brandName}]])">
+<!--                <a th:onclick="|sendBrandName('${brand.brandName}')|">-->
+                    <span class="thumb_img"></span>
+                    <span class="brand_name" th:text="${brand.brandName}">마을회관 왕갈비 일산점</span>
+                    <b class="num" th:text="${brand.franchisesNumber}"> 1230</b>
+                </a>
+            </li>
+        </ol>
+    </dd>
+    <dd class="btn_more"><a href="#">더보기</a></dd>
+    <script th:inline="javascript">
+
+        $('.br_li > li').hide();
+        $('.br_li > li').slice(0, 3).css("display", "block");
+        $('.btn_more').click(function (e) {
+            e.preventDefault();
+            $('.br_li > li:hidden').slice(0, 3).fadeIn(200).css("display", "block");
+            if ($('.br_li > li:hidden').length == 0) {
+                $('.btn_more').fadeOut(100);
+            }
+        });
+
+        var brandName = [[${brandName}]]
+        console.log(brandName)
+        $(function(){
+
+            updateActiveLnb(brandName);
+
+        });
+
+        function updateActiveLnb(brandName) {
+            $('.br_li li').removeClass('active');
+            $('.br_li li.'+brandName).addClass('active');
+            // 현재 href 값을 기준으로 active 클래스를 설정합니다.
+            $('.br_li li').click(function(){
+
+                $('.br_li li').removeClass('active');
+                $(this+brandName).addClass('active');
+            });
+        }
+        updateActiveLnb(brandName)
+    </script>
+</dl>

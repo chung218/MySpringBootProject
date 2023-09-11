@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cafe.review.repository.mybatis.CafeMemberMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="cafeId">
+        <selectKey keyProperty="cafeId" resultType="java.lang.Long" order="BEFORE">
+            SELECT cafe_member_seq.NEXTVAL FROM DUAL
+        </selectKey>
+            insert into cafe_member(cafe_id, cafe_name, address, cafe_number, menu1, menu2, menu3, cafe_type)
+            values (#{cafeId}, #{cafeName}, #{address}, #{cafeNumber}, #{menu1},#{menu2},#{menu3},#{cafeType})
+    </insert>
+
+    <select id="findAll" resultType="cafemember">
+        select *
+        from cafe_member
+    </select>
+
+    <select id="findByCafeName" resultType="cafemember">
+        select *
+        from cafe_member
+        where cafe_name=#{cafeName}
+    </select>
+
+    <select id="findByFran" resultType="cafemember">
+        select *
+        from cafe_member
+        where cafe_type = '프랜차이즈'
+    </select>
+
+    <select id="findByGam" resultType="cafemember">
+        select *
+        from cafe_member
+        where cafe_type = '감성카페'
+    </select>
+
+    <select id="searchByCafeName" resultType="cafemember">
+        select *
+        from cafe_member
+        where cafe_name like '%'||#{cafeName}||'%'
+    </select>
+
+</mapper>

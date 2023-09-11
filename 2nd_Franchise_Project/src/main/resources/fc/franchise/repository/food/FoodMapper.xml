@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fc.franchise.repository.food.FoodMapper">
+
+    <select id="findCategory" resultType="food">
+        SELECT 분류 as category, 장소명 as brand_name, 유형 as food_type,
+               주소1 as add1, 주소2 as add2, 전화번호 as tel,
+               리뷰점수 as review_score, 경도 as longitude, 위도 as latitude
+        from map_info
+        where 분류 =#{category}
+    </select>
+
+    <select id="findBrandName" resultType="food">
+        SELECT 분류 as category, 장소명 as brand_name, 유형 as food_type,
+               주소1 as add1, 주소2 as add2, 전화번호 as tel,
+               리뷰점수 as review_score, 경도 as longitude, 위도 as latitude
+        from map_info
+        where lower(장소명) like lower('%'||#{brandName}||'%')
+    </select>
+
+    <select id="loadTable" resultType="food">
+        select 분류 as category, 장소명 as brand_name, 유형 as food_type,
+               주소1 as add1, 주소2 as add2, 전화번호 as tel,
+               리뷰점수 as review_score, 경도 as longitude, 위도 as latitude
+        from ( SELECT * from map_info where 분류 =#{category} )
+        where rownum between 1 and 150
+    </select>
+
+    <select id="getList" resultType="food">
+        <![CDATA[
+        select rn, 분류 as category, 장소명 as brand_name, 유형 as food_type,
+               주소1 as add1, 주소2 as add2, 전화번호 as tel,
+               리뷰점수 as review_score, 경도 as longitude, 위도 as latitude
+        from(
+                select rownum rn, 분류, 장소명, 유형,
+                       주소1, 주소2, 전화번호,
+                       리뷰점수, 경도, 위도
+                from ( SELECT * from map_info where 분류 ='한식' )
+                where rownum between 1 and #{pageNum} * #{amount})
+        where rn > (#{pageNum}-1) * #{amount}
+                  ]]>
+    </select>
+
+
+
+
+</mapper>

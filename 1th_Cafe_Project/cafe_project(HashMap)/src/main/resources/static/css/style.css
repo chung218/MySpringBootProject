@@ -1,0 +1,144 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-width: 992px;
+    font-family: "Helvetica";
+}
+
+/* navbar */
+.navbar{
+    height: 60px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.navbar #logo {
+    line-height: 60px;
+}
+.navbar #logo img{
+    vertical-align: middle;
+}
+
+.navbar #menu {
+    float: right;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+}
+.navbar #menu li {
+    float:left;
+    margin-left: 50px;
+    line-height: 60px;
+}
+
+.navbar #menu li a {
+    text-decoration: none;
+    color: #545454 ;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* hero header */
+.hero-header{
+    height: 450px;
+    background-image: url('http://www.designtwoply.com/wp-content/uploads/2017/11/designtwoply-project086-1.jpg');
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+
+}
+/* products */
+
+.products h3{
+    font-size: 24px;
+    color: #545454;
+    font-weight: bold;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    text-align: center;
+}
+.product-list{
+    width: 735px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.product{
+    width: 225px;
+    text-align: center;
+    display: block;
+    color: #545454;
+    text-decoration: none;
+    float: left;
+    margin-left:10px;
+    margin-right: 10px;
+    margin-bottom: 80px;
+
+}
+
+.product-name{
+    margin-top: 20px;
+    margin-bottom: 4px;
+
+}
+.clearfix{
+    clear: both;
+}
+/* footer */
+.footer{
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 80px;
+
+}
+.footer a{
+    margin-left: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+}
+.outer {
+    border: 6px solid royalblue;
+    width: 300px;
+    height: 200px;
+    margin: 0 auto;
+    overflow-x: hidden;
+}
+
+.inner-list {
+    display: flex;
+    transition: .3s ease-out;
+    height: 100%;
+}
+
+.inner {
+    border: 6px solid olive;
+    padding: 0 16px;
+}
+
+.button-list {
+    text-align: center;
+}
+
+.product_view h2 {margin: 15px; padding: 0 0 20px; font-size: 24px ; color:#232323; line-height: 26px; }
+.product_view th,td{padding: 14px 0; font-size: 15px; color: #444; text-align: left;}
+
+.product_view table{margin: 0 auto}
+.product_view table td.price{ font-size: 22px; }
+.product_view table td.total{ font-size: 19px; color: #0a56a9;}
+.product_view table td.total b{ font-size: 22px;}
+.product_view table .length{ position: relative; width: 71px; height: 32px; border:1px solid #c6c6c6;}
+.product_view table .length input{ width:44px; height:30px; border:none; border-right: 1px solid #c6c6c6;}
+.product_view table .length a { overflow:hidden; position: absolute; right: 0; width: 26px; height: 16px; color: transparent;}
+.product_view table .length a:nth-of-type(1) {top: 0; background: url("#") no-repeat center;}
+.product_view table .length a:nth-of-type(1) {bottom: 0; background: url("#") no-repeat center; border-top: 1px solid #c6c6c6;}
+.product_view table select{ width: 100%; border:1px solid #c6c6c6; box-sizing: border-box;
+    appearance: none; -webkit-appearance: none; -moz-appearance: none; background:url("#") no-repeat right 11px center;  }
+/* box-sizing은 박스의 크기를 어떤 기준으로 할건지 계산해줌. border-box: 테두리 기준으로 크기 설정 */
+.product_view .btns{ padding: 45px 0 0; text-align: center;}
+.product_view .btns > a{display: inline-block; width:136px; height:42px; font-size: 16px;
+    color:#fff; border-radius: 2px; line-height: 42px;}
+.product_view .btns > a.btn1{ background: #666;}
+.product_view .btns > a.btn2{ background: #0a56a9;}

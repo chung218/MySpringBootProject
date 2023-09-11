@@ -1,0 +1,48 @@
+<dt class="fa fa-pie-chart" title="외식업종" onclick="location.href='/'"></dt>
+<dd class="한식"><a onclick='sendCategory("한식")' title="한식"><i class="fa-solid fa-bowl-food"></i></a></dd>
+<dd class="중식"><a onclick='sendCategory("중식")' title="중식"><i class="fa-solid fa-bowl-rice"></i></a></dd>
+<dd class="일식 active"><a onclick='sendCategory("일식")' title="일식"><i class="fa-solid fa-fish-fins"></i></a></dd>
+<dd class="서양식"><a onclick='sendCategory("서양식")' title="서양식"><i class="fa-solid fa-utensils"></i></a></dd>
+<dd class="치킨"><a onclick='sendCategory("치킨")' title="치킨"><i class="fa-solid fa-drumstick-bite"></i></a></dd>
+<dd class="커피"><a onclick='sendCategory("커피")' title="커피"><i class="fa-solid fa-mug-hot"></i></a></dd>
+<dd class="주점"><a onclick='sendCategory("주점")' title="주점"><i class="fa-solid fa-champagne-glasses"></i></a></dd>
+<dd class="분식"><a onclick='sendCategory("분식")' title="분식"><i class="fa-solid fa-plate-wheat"></i></a></dd>
+<dd class="피자"><a onclick='sendCategory("피자")' title="피자"><i class="fa-solid fa-pizza-slice"></i></a></dd>
+<dd class="제과제빵"><a onclick='sendCategory("제과제빵")' title="제과/제빵"><i class="fa-solid fa-hotdog"></i></a></dd>
+<dd class="패스트푸드"><a onclick='sendCategory("패스트푸드")' title="패스트푸드"><i class="fa-solid fa-burger"></i></a></dd>
+<dd class="커피외음료"><a onclick='sendCategory("커피외음료")' title="커피 외 음료"><i class="fa-solid fa-mug-saucer"></i></a></dd>
+<dd class="아이스크림"><a onclick='sendCategory("아이스크림")' title="아이스크림"><i class="fa-solid fa-ice-cream"></i></a></dd>
+<dd class="기타외국식"><a onclick='sendCategory("기타외국식")' title="기타 외국식"><i class="fa-solid fa-cake-candles"></i></a></dd>
+<dd><a onclick="setOverlayMapTypeId('traffic')" title="도로정보"><i class="fa-solid fa-car-side"></i></a></dd>
+<!--<dd><a href="javacsript:void(0)" onclick="setOverlayMapTypeId('traffic')")>도로<br/>정보</a></dd>-->
+
+<script th:inline="javascript">
+    var category = [[${category}]]
+    console.log('나는 찾는다 카테고리를')
+   // console.log(category)
+    console.log('나는 찾았다 너를')
+    function activeCategory(category){
+       // $('body').hide();
+        //var targetClass = $('a[title='+category+']');
+        $('dd').removeClass('active');
+        $('dd.'+category).addClass('active');
+    }
+    activeCategory(category)
+
+    $(function (){
+        // 브랜드명 섬네일 이미지 가져오기
+        var lnb_cate = $(".main dl.fixed_quick_menu dd.active").index()-1;
+        for(var i = 0; i < 4; i++) {
+            $(".thumb_img").eq(i-1).prepend("<img src='/images/" + lnb_cate + "_" + i + ".jpg'>");
+        }
+        // 브랜드 섬네일 없는 인덱스는 브랜드명 노출하기
+        for(var i = 4; i < 11; i++) {
+            var name_cate = $(".brand_name").eq(i-1).text().slice(0,3);
+            $(".thumb_img").eq(i-1).prepend(name_cate);
+        }
+        // 좌측 외식업종 카테고리 active 아이콘 버튼(fontAwesome) 모양 복붙
+        $(".fixed_quick_menu dd.active i").clone().insertBefore(".latest dt b");
+        $(".fixed_quick_menu dd.active i").clone().insertBefore(".lnb.main h2 b");
+    });
+
+</script>

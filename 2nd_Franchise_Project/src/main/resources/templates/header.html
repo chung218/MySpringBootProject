@@ -1,0 +1,17 @@
+<header>
+    <h1><a href="/">전국 프랜차이즈 가맹현황</a></h1>
+    <nav>
+        <ul>
+            <li><a href="category">업종별</a></li>
+<!--            <li><a href="category" th:href="|@{category/{category}(category=${category})}|">업종별</a></li>-->
+            <li><a href="brand">브랜드별</a></li>
+            <li><a href="region">지역별</a></li>
+        </ul>
+    </nav>
+ <form action="search" method="post">
+    <span class="search_box">
+        <input type="text" placeholder="프랜차이즈명을 입력하세요." id="search_brand" name="search_brand">
+        <input type="submit" value="" class="fa fa-search">
+    </span>
+ </form>
+</header>
